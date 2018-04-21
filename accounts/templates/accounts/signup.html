@@ -18,11 +18,11 @@ Confirm Passowrd:
 <br />
 <input type="password" name="password2"/>
 <br />
-{% if error %}
-{{ error }}
-{% endif %}
 <br />
 <input class="btn btn-primary" type="submit" value="Sign Up!" />
+{% if error %}
+<p class="text-warning">{{ error }}</p>
+{% endif %}
 </form>
 
 {% endblock %}
