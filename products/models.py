@@ -18,3 +18,6 @@ class Product(models.Model):
 
     def pub_date(self):
         return self.date.strftime('%b %e %Y')
+
+    def summary(self):
+        return "{}{}".format(self.text[:100], '...')
