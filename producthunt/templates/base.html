@@ -13,7 +13,7 @@
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-
+  <link href="{% static 'open-iconic/font/css/open-iconic-bootstrap.css' %}" rel="stylesheet"
 
   <!-- Custom styles for this template -->
   <link href="album.css" rel="stylesheet">
@@ -42,6 +42,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
+            <a class="nav-link" href="{% url 'create' %}"><span class="oi oi-plus"></span></a>
             <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
             <form id="logout" method="POST" action="{% url 'logout' %}">
               {% csrf_token %}
