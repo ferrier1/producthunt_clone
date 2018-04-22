@@ -16,7 +16,10 @@
     <img src="{{ product.image.url }}" class="img-fluid" />
   </div>
   <div class="col-4">
-    <a href="javascript:{document.getElementById('upvote').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Upvote {{ product.votes_total }}</button></a>
+    <button id="jQueryTest" class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Upvote {{ product.votes_total }}</button>
+    <br />
+    <p id="vote_error" class="text-warning"></p>
+
   </div>
 </div>
 
@@ -37,8 +40,16 @@
 </div>
 
 
-<form id="upvote" method="POST" action="{% url 'upvote' product.id %}">
-{% csrf_token %}
-<input type="hidden">
 </form>
+<script type="text/javascript">
+$(function() {
+$('#jQueryTest').click(function() {
+    // You gotta include the csrf_token in your post data
+    $.post('./upvote', {'csrfmiddlewaretoken': '{{ csrf_token }}'}, function(data) {
+      alert(data);
+      //alert(data);
+  });
+});
+})
+</script>
 {% endblock %}

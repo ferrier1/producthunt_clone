@@ -21,3 +21,10 @@ class Product(models.Model):
 
     def summary(self):
         return "{}{}".format(self.text[:100], '...')
+
+class Vote(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('product', 'user')

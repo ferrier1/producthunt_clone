@@ -9,7 +9,7 @@
     <p>{{ product.summary }}</p>
   </div>
   <div class="col-4">
-    <a href="javascript:{document.getElementById('upvote{{ product.id }}').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Upvote {{ product.votes_total }}</button></a>
+    <button id="jQueryTest" class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Upvote {{ product.votes_total }}</button>
   </div>
 </div>
 
@@ -17,5 +17,15 @@
 {% csrf_token %}
 <input type="hidden">
 </form>
-
+<script type="text/javascript">
+$(function() {
+$('#jQueryTest').click(function() {
+    // You gotta include the csrf_token in your post data
+    $.post('./upvote', {'csrfmiddlewaretoken': '{{ csrf_token }}'}, function(data) {
+      alert(data);
+      //alert(data);
+  });
+});
+})
+</script>
 {% endfor %} {% endblock %}

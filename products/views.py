@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Product
+from .models import Vote
+from django.db import IntegrityError
+from django.http import HttpResponse, JsonResponse
 
 
 def home(request):
@@ -38,5 +41,11 @@ def upvote(request, product_id):
     if request.method == 'POST':
         product = get_object_or_404(Product, pk=product_id)
         product.votes_total += 1
-        product.save()
+        # changes
+        try:
+            Vote.objects.create(product=product, user=request.user)
+            product.save()
+        except IntegrityError:  # if "unique_together" fails, it will rais an  "IntegrityError" exception
+            return HttpResponse('Vote already cast')
+
         return redirect('/products/' + str(product.id))
